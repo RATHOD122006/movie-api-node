@@ -1,9 +1,9 @@
-// controllers/controllmovie.js
+
 const Movie = require('../models/moviemodule');
 const fs = require('fs');
 const path = require('path');
 
-// show home/list
+
 exports.getHome = async (req, res) => {
   try {
     const movies = await Movie.find().sort({ createdAt: -1 });
@@ -14,12 +14,11 @@ exports.getHome = async (req, res) => {
   }
 };
 
-// show add form
+
 exports.showAddForm = (req, res) => {
   res.render('add');
 };
 
-// create movie (with multer file available as req.file)
 exports.addMovie = async (req, res) => {
   try {
     const { title, director, year, genre } = req.body;
@@ -42,7 +41,7 @@ exports.addMovie = async (req, res) => {
   }
 };
 
-// show edit form
+
 exports.showEditForm = async (req, res) => {
   try {
     const movie = await Movie.findById(req.params.id);
@@ -54,14 +53,12 @@ exports.showEditForm = async (req, res) => {
   }
 };
 
-// update movie (optionally replace poster)
 exports.editMovie = async (req, res) => {
   try {
     const { title, director, year, genre } = req.body;
     const movie = await Movie.findById(req.params.id);
     if (!movie) return res.status(404).send('Movie not found');
 
-    // If a new file uploaded, delete old file
     if (req.file) {
       if (movie.poster) {
         const oldPath = path.join(__dirname, '..', 'public', movie.poster);
@@ -87,7 +84,7 @@ exports.editMovie = async (req, res) => {
   }
 };
 
-// show delete confirm page
+
 exports.showDeletePage = async (req, res) => {
   try {
     const movie = await Movie.findById(req.params.id);
@@ -99,7 +96,7 @@ exports.showDeletePage = async (req, res) => {
   }
 };
 
-// delete movie
+
 exports.deleteMovie = async (req, res) => {
   try {
     const movie = await Movie.findByIdAndDelete(req.params.id);
