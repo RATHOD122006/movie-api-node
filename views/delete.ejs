@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Delete Movie</title>
+  <style>
+    body{font-family:Arial, sans-serif; background:#f7f7fb; padding:30px}
+    .box{max-width:600px;margin:auto;background:#fff;padding:20px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.06); text-align:center}
+    .poster{width:200px;height:280px;object-fit:cover;border-radius:8px;margin:auto;display:block}
+    .actions {margin-top:18px; display:flex; gap:8px; justify-content:center}
+    button, a {padding:10px 14px; text-decoration:none}
+    .btn-danger {background:#e74c3c;color:#fff;border:0;border-radius:6px}
+    .btn-secondary {background:#eee;color:#333;border:0;border-radius:6px}
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>Delete Movie</h2>
+
+    <% if (movie.poster) { %>
+      <img src="<%= movie.poster %>" class="poster" alt="poster">
+    <% } %>
+
+    <p>Are you sure you want to delete "<strong><%= movie.title %></strong>"?</p>
+
+    <div class="actions">
+      <a href="/" class="btn-secondary">Cancel</a>
+
+      <form action="/delete/<%= movie._id %>" method="POST" style="display:inline;">
+        <button type="submit" class="btn-danger">Yes, Delete</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

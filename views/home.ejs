@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Movies</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f7f7fb;}
+    .container { max-width: 1000px; margin: auto; }
+    .top { display:flex; justify-content: space-between; align-items:center; margin-bottom: 16px;}
+    .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap:16px; }
+    .card { background:#fff; padding:12px; border-radius:8px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+    .poster { width:100%; height:300px; object-fit:cover; border-radius:6px; background:#eaeaea; }
+    .meta { margin-top:8px; }
+    .actions { margin-top:10px; display:flex; gap:8px; }
+    a.btn { padding:8px 10px; text-decoration:none; border-radius:6px; border:1px solid #ccc; }
+    a.add { background:#2d9cdb; color:#fff; border:0 }
+    form.inline { display:inline }
+    .empty { text-align:center; color:#666; padding:40px; background:#fff; border-radius:8px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="top">
+      <h1>Movie List</h1>
+      <a href="/add" class="btn add">+ Add New Movie</a>
+    </div>
+
+    <% if (movies.length === 0) { %>
+      <div class="empty">
+        <p>No movies yet. Click "Add New Movie" to create one.</p>
+      </div>
+    <% } else { %>
+    <div class="grid">
+      <% movies.forEach(function(movie){ %>
+        <div class="card">
+          <% if (movie.poster) { %>
+            <img src="<%= movie.poster %>" alt="poster" class="poster">
+          <% } else { %>
+            <div class="poster" style="display:flex;align-items:center;justify-content:center;color:#888">No poster</div>
+          <% } %>
+
+          <div class="meta">
+            <h3><%= movie.title %></h3>
+            <p><strong>Director:</strong> <%= movie.director || '-' %></p>
+            <p><strong>Year:</strong> <%= movie.year || '-' %></p>
+            <p><strong>Genre:</strong> <%= movie.genre || '-' %></p>
+          </div>
+
+          <div class="actions">
+            <a class="btn" href="/edit/<%= movie._id %>">Edit</a>
+            <a class="btn" href="/delete/<%= movie._id %>">Delete</a>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+    <% } %>
+  </div>
+</body>
+</html>
